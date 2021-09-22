@@ -14,34 +14,30 @@ function partition(arr, startIndex, endIndex) {
   let left = startIndex;
   let right = endIndex;
   // 坑的位置，初始等于pivot的位置
-  let index = startIndex;
   //大循环在左右指针重合或者交错时结束
-  while (right >= left) {
-    //right指针从右向左进行比较
-    while (right >= left) {
-      if (arr[right] < pivot) {
-        arr[left] = arr[right];
-        index = right;
-        left++;
-        break;
-      }
+  
+  while( left != right) {
+    //控制right指针比较并左移
+    while(left<right && arr[right] > pivot){
       right--;
     }
-    // console.log(JSON.stringify(arr));
-    //left指针从左向右进行比较
-    while (right >= left) {
-      if (arr[left] > pivot) {
-        arr[right] = arr[left];
-        index = left;
-        right--;
-        break;
-      }
+    //控制right指针比较并右移
+    while( left<right && arr[left] <= pivot) {
       left++;
     }
-    // console.log(JSON.stringify(arr));
+    //交换left和right指向的元素
+    if(left<right) {
+      let p = arr[left];
+      arr[left] = arr[right];
+      arr[right] = p;
+    }
+    console.log(JSON.stringify(arr));
   }
-    arr[index] = pivot;
-    return index;
+  //pivot和指针重合点交换
+  let p = arr[left];
+  arr[left] = arr[startIndex];
+  arr[startIndex] = p;
+  return left;
 }
 
 let arr = [4, 7, 6, 5, 3, 2, 8, 1];
@@ -50,24 +46,15 @@ console.log(arr);
 /**
 [ 4, 7, 6, 5, 3, 2, 8, 1] left=0 right=7 index=0
 
-[1, 7, 6, 5, 3, 2, 8, 1] 比较right值 left=1 right=7 index=7 移动数字1
-[1, 7, 6, 5, 3, 2, 8, 7] 比较left值 left=1 right=6 index=1 移动数字7
-[1, 2, 6, 5, 3, 2, 8, 7] 比较right值 left=1 right=5 index=1 不移动数字8
-[1, 2, 6, 5, 3, 6, 8, 7] 比较right值 left=1 right=4 index=1 不移动数字6
-[1, 2, 3, 5, 3, 6, 8, 7]
-[1, 2, 3, 5, 5, 6, 8, 7]
-[1, 2, 3, 5, 5, 6, 8, 7]
-[1, 2, 3, 5, 5, 6, 8, 7]
+[4, 1, 6, 5, 3, 2, 8, 7]
+[4, 1, 2, 5, 3, 6, 8, 7]
+[4, 1, 2, 3, 5, 6, 8, 7]
+[4, 1, 2, 3, 5, 6, 8, 7]
+[3, 1, 2, 4, 5, 6, 8, 7]
+[2, 1, 3, 4, 5, 6, 8, 7]
 [1, 2, 3, 4, 5, 6, 8, 7]
 [1, 2, 3, 4, 5, 6, 8, 7]
 [1, 2, 3, 4, 5, 6, 8, 7]
-[1, 2, 3, 4, 5, 6, 8, 7]
-[1, 2, 3, 4, 5, 6, 8, 7]
-[1, 2, 3, 4, 5, 6, 8, 7]
-[1, 2, 3, 4, 5, 6, 8, 7]
-[1, 2, 3, 4, 5, 6, 8, 7]
-[1, 2, 3, 4, 5, 6, 7, 7]
-[1, 2, 3, 4, 5, 6, 7, 7]
 [
   1, 2, 3, 4,
   5, 6, 7, 8
