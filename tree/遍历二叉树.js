@@ -13,23 +13,23 @@ function createBinaryTree (list) {
   }
   return node
 }
-function preOrderTraveral(node) {
-  if (node == null) return
-  console.log(node.data);
-  preOrderTraveral(node.leftChild)
-  preOrderTraveral(node.rightChild)
-}
-function inOrderTraveral(node) {
-  if (node == null) return
-  inOrderTraveral(node.leftChild)
-  console.log(node.data);
-  inOrderTraveral(node.rightChild)
-}
-function postOrderTraveral(node) {
-  if (node == null) return
-  postOrderTraveral(node.leftChild)
-  postOrderTraveral(node.rightChild)
-  console.log(node.data);
+function preOrderTraveral (node) {
+  let stack = []
+  function fn () {
+    if(!node)return
+    while (node !== null) {
+      console.log(node.data);
+      stack.push(node)
+      node = node.leftChild
+    }
+    node =stack.pop()
+    while (node && node.rightChild == null) {
+      node = stack.pop()
+    }
+    node = node && node.rightChild
+    fn()
+  }
+  fn()
 }
 const node = createBinaryTree([3, 2, 9, null, null, 10, null, null, 8, null, 4])
 console.log(node);
