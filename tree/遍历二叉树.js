@@ -15,21 +15,17 @@ function createBinaryTree (list) {
 }
 function preOrderTraveral (node) {
   let stack = []
-  function fn () {
-    if(!node)return
+  while (node || stack.length > 0) {
     while (node !== null) {
       console.log(node.data);
       stack.push(node)
       node = node.leftChild
     }
-    node =stack.pop()
-    while (node && node.rightChild == null) {
+    if (stack.length > 0) {
       node = stack.pop()
+      node = node.rightChild
     }
-    node = node && node.rightChild
-    fn()
   }
-  fn()
 }
 const node = createBinaryTree([3, 2, 9, null, null, 10, null, null, 8, null, 4])
 console.log(node);
