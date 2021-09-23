@@ -14,16 +14,18 @@ function createBinaryTree (list) {
   return node
 }
 function preOrderTraveral (node) {
-  let stack = []
+  let stack = [node];
   while (node || stack.length > 0) {
-    while (node !== null) {
+    if (node) {
       console.log(node.data);
-      stack.push(node)
-      node = node.leftChild
+      node.leftChild && stack.push(node.leftChild);
+      node = node.leftChild;
+      continue;
     }
     if (stack.length > 0) {
-      node = stack.pop()
-      node = node.rightChild
+      node = stack.pop();
+      node = node.rightChild;
+      node && stack.push(node);
     }
   }
 }
